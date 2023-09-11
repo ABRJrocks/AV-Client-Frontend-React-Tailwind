@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leftShape {
+  background-color: #b4ddbf;
+  border-radius: 10px 0px 0px 10px;
+  box-shadow: 2px 2px 6px #373f411f;
+  height: 46px;
+  width: 8px;
+}
