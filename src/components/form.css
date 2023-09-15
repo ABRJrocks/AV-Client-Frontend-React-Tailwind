@@ -37,7 +37,8 @@
   flex: auto;
 }
 .googleBtnImg {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .my-5 {
