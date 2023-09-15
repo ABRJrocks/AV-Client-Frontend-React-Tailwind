@@ -12,6 +12,7 @@ import {
   MDBCheckbox
 }
   from 'mdb-react-ui-kit';
+import { Link } from 'react-router-dom';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
                 <a href="!#">Forgot password?</a>
               </div>
 
-              <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#4CAD67'}}>Login</MDBBtn>
+              <Link to="/chat"> <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#4CAD67'}} >Login</MDBBtn> </Link>
 
               <div className="divider d-flex align-items-center my-4">
                 <p className="text-center  fw-bold mx-3 mb-0">Or sign in with Google</p>

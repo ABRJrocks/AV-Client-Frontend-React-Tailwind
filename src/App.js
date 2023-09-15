@@ -1,11 +1,22 @@
-import './App.css';
+import "./App.css";
 import Login from "./components/FormSignin";
-import MainPage from "./components/mainPage"
+import Chat from "./components/mainPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <MainPage></MainPage>
-      {/* <Login></Login> */}
+      <Router>
+      <Routes>
+        <Route path="/" element={<Login/>}></Route>
+        <Route path="/chat" element={<Chat/>}></Route>
+      </Routes>
+    </Router>
     </div>
   );
 }
