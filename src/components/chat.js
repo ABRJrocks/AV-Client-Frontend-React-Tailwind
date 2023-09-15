@@ -5,6 +5,7 @@ import Send from "../assets/send.svg";
 import Del2 from "../assets/del2.svg";
 import Logout from "../assets/logoff.svg";
 import Filter from "../assets/filter.svg";
+import { Link } from "react-router-dom";
 
 export const chat = () => {
   const Examples = [
@@ -65,12 +66,14 @@ export const chat = () => {
                 <img src={Del2}></img>
               </span>
             </div>
+            <Link to="/" className="text-[#4F4F4F] hover:text-[#818181]">
             <div className="flex flex-row">
                 <p className="ml-3 basis-3/4 cursor-pointer logout">Logout</p>
                 <span className="cursor-pointer w-[20px] mt-1 basis-1/10 logout">
                   <img src={Logout} alt="Logout"></img>
                 </span>
             </div>
+            </Link>
           </div>
           <div>
             <button className="w-[100%] h-[55px] mt-8 text-white border rounded-[10px] bg-[#4cb469] hover:bg-[#61d381] cursor-pointer">
