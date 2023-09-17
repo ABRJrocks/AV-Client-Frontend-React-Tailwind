@@ -10,30 +10,28 @@ import Filter from "../assets/filter.svg";
 import { Link } from "react-router-dom";
 
 const Chat = () => {
-  const [input, setInput] = useState(""); // State variable to store user input
+  const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const endOfMessages = useRef(null);
 
   const handleSend = () => {
-    if (input.trim() === "") return; // Do not send empty messages
+    if (input.trim() === "") return;
 
-    // Update the chat history with the user's message
     setMessages([...messages, { text: input, isUser: true }]);
 
-    setInput(""); // Clear the input field
+    setInput("");
 
     fetch(
-      // `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`,)
-      `https://jsonplaceholder.typicode.com/todos/${input}`
+      `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`
     )
+      // `https://jsonplaceholder.typicode.com/todos/${input}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to get a response from the server.");
         }
-        return response.text(); // Convert the response to text
+        return response.text();
       })
       .then((data) => {
-        // Update the chat history with the server's response as 'role: assistant'
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: data, isUser: false },
@@ -41,7 +39,6 @@ const Chat = () => {
       })
       .catch((error) => {
         console.error("Error sending message:", error);
-        // Add a custom message to the chat history when there's an error
         setMessages((prevMessages) => [
           ...prevMessages,
           { text: "Sorry, an error occurred.", isUser: false },
@@ -100,7 +97,7 @@ const Chat = () => {
         <div className="py-2 border-b-2 text-lg md:text-xl font-semibold border-[#89AFCC] text-left md:text-left">
           Recent Activity
         </div>
-        <div className="p-3 bg-white mt-4 rounded-md shadow-md h-[40%] md:h-[60%] overflow-x-clip hover:overflow-scroll hide-scrollbar ">
+        <div className="p-3 bg-white mt-4 rounded-md shadow-md h-[40%] md:h-[60%] overflow-y-scroll ">
           <div className="flex flex-row rounded-[10px] md:items-center mt-2">
             <div className="leftShape basis-1/10"></div>
             <p className="text-[18px] ml-3  basis-3/4  cursor-pointer">
@@ -126,15 +123,6 @@ const Chat = () => {
         </div>
 
         <div className="h-[30%] md:h-[10%] mt-5">
-          {/* {[1, 2, 3].map((item, index) => (
-            <div className="flex flex-row mt-3">
-              <p className=" text-[16px] ml-3 basis-4/5 cursor-pointer">
-                This is my Chat History
-              </p>
-              <span className=" w-[16px] mt-1 basis-1/5"></span>
-            </div>
-          ))} */}
-
           <div className="text-[18px] font-[600] mt-[20%]">
             <div className="flex flex-row">
               <p className=" ml-3  basis-3/4 cursor-pointer">
@@ -220,8 +208,8 @@ const Chat = () => {
                 type="text"
                 className="border w-full pr-[60px] resize-none  text-[14px] pt-4 pl-4 shadow-md bg-white rounded-[10px]"
                 placeholder="Enter your query here."
-                value={input} // Bind the input field to the input state variable
-                onChange={(e) => setInput(e.target.value)} // Update the input state when the user types
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
               ></textarea>
               <span
                 onClick={handleSend}
