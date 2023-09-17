@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./mainPage.css";
 import ChatHistory from "../assets/chatHistory.svg";
 import Send from "../assets/send.svg";
@@ -11,35 +11,47 @@ import { Link } from "react-router-dom";
 
 const Chat = () => {
   const [input, setInput] = useState(""); // State variable to store user input
+  const [messages, setMessages] = useState([]);
+  const endOfMessages = useRef(null);
 
   const handleSend = () => {
     if (input.trim() === "") return; // Do not send empty messages
 
     // Update the chat history with the user's message
+    setMessages([...messages, { text: input, isUser: true }]);
+
     setInput(""); // Clear the input field
 
-    // Make a fetch API call to send the user's message and receive a response
     fetch(
-      `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`,
-      {
-        // mode: "no-cors"
-      }
+      // `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`,)
+      `https://jsonplaceholder.typicode.com/todos/${input}`
     )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error sending message:", error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to get a response from the server.");
+        }
+        return response.text(); // Convert the response to text
+      })
+      .then((data) => {
+        // Update the chat history with the server's response as 'role: assistant'
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: data, isUser: false },
+        ]);
+      })
+      .catch((error) => {
+        console.error("Error sending message:", error);
+        // Add a custom message to the chat history when there's an error
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: "Sorry, an error occurred.", isUser: false },
+        ]);
+      });
   };
 
-
+  useEffect(() => {
+    endOfMessages.current?.scrollIntoView();
+  }, [messages]);
 
   const Examples = [
     "Best advices by CEOs around the world",
@@ -51,35 +63,35 @@ const Chat = () => {
   ];
 
   const chat = [
-    {
-      role: "user",
-      message: "which are best backend servers according to performance?",
-    },
-    {
-      role: "assistant",
-      message:
-        "I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSS",
-    },
-    {
-      role: "user",
-      message:
-        "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
-    },
-    {
-      role: "assistant",
-      message:
-        "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
-    },
-    {
-      role: "user",
-      message:
-        "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
-    },
-    {
-      role: "assistant",
-      message:
-        "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
-    },
+    // {
+    //   role: "user",
+    //   message: "which are best backend servers according to performance?",
+    // },
+    // {
+    //   role: "assistant",
+    //   message:
+    //     "I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSS",
+    // },
+    // {
+    //   role: "user",
+    //   message:
+    //     "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
+    // },
+    // {
+    //   role: "assistant",
+    //   message:
+    //     "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
+    // },
+    // {
+    //   role: "user",
+    //   message:
+    //     "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
+    // },
+    // {
+    //   role: "assistant",
+    //   message:
+    //     "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
+    // },
   ];
 
   return (
@@ -150,15 +162,16 @@ const Chat = () => {
       </div>
 
       <div className="w-full md:w-[70%]">
-        {chat.length > 0 ? (
-          <div className="h-[80vh] overflow-scroll hide-scrollbar pt-8">
-            {chat.map((item, index) => (
+        {messages.length > 0 ? (
+          <div className="h-[80vh] overflow-y-scroll pt-8">
+            {messages.map((message, index) => (
               <div
+                key={index}
                 className={`w-[75%] mx-auto p-6 flex items-center ${
-                  item.role === "user" && "flex-row-reverse "
+                  message.isUser === true && "flex-row-reverse "
                 }`}
               >
-                {item.role === "user" ? (
+                {message.isUser === true ? (
                   <img
                     className="ml-5 w-[36px] shadow-md rounded-full"
                     src={User}
@@ -171,26 +184,27 @@ const Chat = () => {
                 )}
                 <div
                   className={`leading-loose p-6 ${
-                    item.role === "assistant"
+                    message.isUser === false
                       ? "bg-white shadow-md rounded-[10px]"
                       : " text-white bg-[#4cb469] rounded-[10px] shadow-md"
                   }`}
                 >
-                  {item.message}
+                  {message.text}
+                  <div ref={endOfMessages} />
                 </div>
               </div>
             ))}
           </div>
         ) : (
           <div className="h-[80%] border flex flex-col justify-center items-center ">
-            {/* //   <div className="text-4xl bold mb-8">AV</div>
-          //   <div className="flex flex-wrap justify-around max-w-[900px]">
-          //     {Examples.map((items, index) => (
-          //       <div className="text-lg p-4 border-2 rounded cursor-pointer mt-4 min-w-[400px] hover:bg-[#eeeeee]">
-          //         {items}
-          //       </div>
-          //     ))}
-          //   </div> */}
+            <div className="text-4xl bold mb-8">AV</div>
+            <div className="flex flex-wrap justify-around max-w-[900px]">
+              {Examples.map((items, index) => (
+                <div className="text-lg p-4 border-2 rounded cursor-pointer mt-4 min-w-[400px] hover:bg-[#eeeeee]">
+                  {items}
+                </div>
+              ))}
+            </div>
           </div>
         )}
         <div className="h-[20%] ">
@@ -203,13 +217,16 @@ const Chat = () => {
                 Filter
               </button>
               <textarea
-              type="text"
-              className="border w-full pr-[60px] resize-none  text-[14px] pt-4 pl-4 shadow-md bg-white rounded-[10px]"
-              placeholder="Enter your query here."
-              value={input} // Bind the input field to the input state variable
-              onChange={(e) => setInput(e.target.value)} // Update the input state when the user types
-            ></textarea>
-              <span onClick={handleSend} className="w-[32px] absolute right-5 top-5 cursor-pointer">
+                type="text"
+                className="border w-full pr-[60px] resize-none  text-[14px] pt-4 pl-4 shadow-md bg-white rounded-[10px]"
+                placeholder="Enter your query here."
+                value={input} // Bind the input field to the input state variable
+                onChange={(e) => setInput(e.target.value)} // Update the input state when the user types
+              ></textarea>
+              <span
+                onClick={handleSend}
+                className="w-[32px] absolute right-5 top-5 cursor-pointer"
+              >
                 <img src={Send}></img>
               </span>
             </div>
