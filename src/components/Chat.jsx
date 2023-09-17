@@ -14,6 +14,10 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const endOfMessages = useRef(null);
 
+  const clearMessages = () => {
+    setMessages([])
+  }
+
   const handleSend = () => {
     if (input.trim() === "") return;
 
@@ -142,7 +146,7 @@ const Chat = () => {
             </Link>
           </div>
           <div>
-            <button className="w-[100%] h-[55px] mt-8 text-white border rounded-[10px] bg-[#4cb469] hover:bg-[#61d381] cursor-pointer">
+            <button onClick={clearMessages} className="w-[100%] h-[55px] mt-8 text-white border rounded-[10px] bg-[#4cb469] hover:bg-[#61d381] cursor-pointer">
               + New chat
             </button>
           </div>
