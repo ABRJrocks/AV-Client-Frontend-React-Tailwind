@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import Login from "./components/FormSignin";
 import Chat from "./components/mainPage";
@@ -9,6 +10,7 @@ import {
   Link,
 } from "react-router-dom";
 function App() {
+  const [input, setInput] = useState("");
   return (
     <div className="App">
       <Router>

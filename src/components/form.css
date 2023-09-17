@@ -53,3 +53,8 @@
   padding-left: 0;
   margin-top: var(--mdb-gutter-y);
 }
+
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
