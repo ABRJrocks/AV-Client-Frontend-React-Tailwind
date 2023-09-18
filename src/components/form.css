@@ -54,6 +54,10 @@
   margin-top: var(--mdb-gutter-y);
 }
 
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 
 ::-webkit-scrollbar-track
 {

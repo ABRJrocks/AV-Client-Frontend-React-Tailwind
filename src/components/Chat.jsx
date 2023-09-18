@@ -7,12 +7,19 @@ import Logout from "../assets/logoff.svg";
 import User from "../assets/user.png";
 import Assistant from "../assets/assistant.svg";
 import Filter from "../assets/filter.svg";
+import History from '../assets/history.png'
 import { Link } from "react-router-dom";
 
 const Chat = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const endOfMessages = useRef(null);
+  const [show, setShow] = useState(true);
+  
+
+  const showPrevConvo = () => {
+    const preConver = true;
+  }
 
   const clearMessages = () => {
     setMessages([])
@@ -55,45 +62,14 @@ const Chat = () => {
   }, [messages]);
 
   const Examples = [
-    "Best advices by CEOs around the world",
-    "How to write good code in React JS",
-    "How long it takes to become good coder?",
-    "Is Angular better than React?",
-    "Why people communicate less these days?",
-    "Are you ChatGPT or AV?",
+    "Suggest me a solution for a medium sized room",
+    "Hshow me some cheapest screens  available",
+    // "How long it takes to become good coder?",
+    // "Is Angular better than React?",
+    // "Why people communicate less these days?",
+    // "Are you ChatGPT or AV?",
   ];
 
-  const chat = [
-    // {
-    //   role: "user",
-    //   message: "which are best backend servers according to performance?",
-    // },
-    // {
-    //   role: "assistant",
-    //   message:
-    //     "I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSS. I can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSSI can help you with that. Here are some examples: I want to know how to use Tailwind CSS",
-    // },
-    // {
-    //   role: "user",
-    //   message:
-    //     "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
-    // },
-    // {
-    //   role: "assistant",
-    //   message:
-    //     "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
-    // },
-    // {
-    //   role: "user",
-    //   message:
-    //     "How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react How to use tailwind with react ",
-    // },
-    // {
-    //   role: "assistant",
-    //   message:
-    //     "Heres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-appHeres an example: https://tailwindcss.com/docs/guides/create-react-app",
-    // },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F5F5] md:flex-row">
@@ -101,11 +77,16 @@ const Chat = () => {
         <div className="py-2 border-b-2 text-lg md:text-xl font-semibold border-[#89AFCC] text-left md:text-left">
           Recent Activity
         </div>
-        <div className="p-3 bg-white mt-4 rounded-md shadow-md h-[40%] md:h-[60%] overflow-y-scroll ">
+        {
+          show ? (
+            <div className="p-3 mt-4 rounded-md h-[40%] md:h-[50%] overflow-y-clip hide-scrollbar "/>
+          ) : (
+            <div className="p-3 mt-4 rounded-md h-[40%] md:h-[50%] hover:overflow-y-scroll overflow-y-clip hide-scrollbar ">
+
           <div className="flex flex-row rounded-[10px] md:items-center mt-2">
             <div className="leftShape basis-1/10"></div>
             <p className="text-[18px] ml-3  basis-3/4  cursor-pointer">
-              Tell me how can I register for Traaa.com
+              This is my chat History
             </p>
             <span className="cursor-pointer ml-5 w-[18px] basis-1/10">
               <img src={ChatHistory}></img>
@@ -114,7 +95,7 @@ const Chat = () => {
               <img src={Del2}></img>
             </span>
           </div>
-          {[1, 2, 3, 4, 5, 6, 7, 9, 22, 44].map((item, index) => (
+          {/* {[1, 2, 3, 4, 5, 6, 7, 9, 22, 44].map((item, index) => (
             <div className="flex flex-row mt-3 border-b-[1px] border-[#E6E6E6]">
               <p className="text-[18px] ml-3 basis-4/5 cursor-pointer">
                 This is my Chat History
@@ -123,11 +104,30 @@ const Chat = () => {
                 <p className="text-[12px] text-[#929292]">1:22 PM</p>
               </span>
             </div>
-          ))}
+          ))} */}
         </div>
+          )
+        }
 
         <div className="h-[30%] md:h-[10%] mt-5">
           <div className="text-[18px] font-[600] mt-[20%]">
+            <div onClick={() => setShow(!show)} className="flex flex-row">
+              {
+                show ? (
+              <p className=" ml-3  basis-3/4 cursor-pointer">
+              Show Previous Conversations
+              </p>
+
+                ) : (
+              <p className=" ml-3  basis-3/4 cursor-pointer">
+              Hide Previous Conversations
+              </p>
+                )
+              }
+              <span className="cursor-pointer w-[20px] mt-1 basis-1/10">
+                <img src={History}></img>
+              </span>
+            </div>
             <div className="flex flex-row">
               <p className=" ml-3  basis-3/4 cursor-pointer">
                 Delete Conversations
@@ -190,7 +190,7 @@ const Chat = () => {
         ) : (
           <div className="h-[80%] border flex flex-col justify-center items-center ">
             <div className="text-4xl bold mb-8">AV</div>
-            <div className="flex flex-wrap justify-around max-w-[900px]">
+            <div className="flex flex-wrap justify-around gap-4 max-w-[900px]">
               {Examples.map((items, index) => (
                 <div className="text-lg p-4 border-2 rounded cursor-pointer mt-4 min-w-[400px] hover:bg-[#eeeeee]">
                   {items}
