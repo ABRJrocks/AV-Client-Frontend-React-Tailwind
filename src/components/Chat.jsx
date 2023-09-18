@@ -33,10 +33,10 @@ const Chat = () => {
     setInput("");
 
     fetch(
-      //   `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`
-      // )
-      `https://jsonplaceholder.typicode.com/todos/${input}`
-    )
+        `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`
+      )
+    //   `https://jsonplaceholder.typicode.com/todos/${input}`
+    // )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to get a response from the server.");
