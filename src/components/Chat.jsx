@@ -32,11 +32,7 @@ const Chat = () => {
     setLoadin(true);
     setInput("");
 
-    fetch(
-        `https://infinite-retreat-73092-419cad09f4c1.herokuapp.com/va/response/${input}`
-      )
-    //   `https://jsonplaceholder.typicode.com/todos/${input}`
-    // )
+    fetch(`https://jsonplaceholder.typicode.com/todos/${input}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to get a response from the server.");
@@ -97,15 +93,15 @@ const Chat = () => {
               </span>
             </div>
             {/* {[1, 2, 3, 4, 5, 6, 7, 9, 22, 44].map((item, index) => (
-            <div className="flex flex-row mt-3 border-b-[1px] border-[#E6E6E6]">
-              <p className="text-[18px] ml-3 basis-4/5 cursor-pointer">
-                This is my Chat History
-              </p>
-              <span className=" w-[16px] ml-5 mt-1 basis-1/5">
-                <p className="text-[12px] text-[#929292]">1:22 PM</p>
-              </span>
-            </div>
-          ))} */}
+              <div className="flex flex-row mt-3 border-b-[1px] border-[#E6E6E6]">
+                <p className="text-[18px] ml-3 basis-4/5 cursor-pointer">
+                  This is my Chat History
+                </p>
+                <span className=" w-[16px] ml-5 mt-1 basis-1/5">
+                  <p className="text-[12px] text-[#929292]">1:22 PM</p>
+                </span>
+              </div>
+            ))} */}
           </div>
         )}
 
@@ -154,8 +150,7 @@ const Chat = () => {
       </div>
 
       <div className="w-full md:w-[70%]">
-
-            {/* Rendering two messages funcitons to show animation as well. */}
+        {/* Rendering two messages funcitons to show animation as well. */}
 
         {messages.length > 0 ? (
           <div className="h-[80vh] overflow-y-scroll pt-8">
